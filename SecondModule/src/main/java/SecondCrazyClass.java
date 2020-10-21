@@ -1,71 +1,31 @@
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Objects;
-
+//console
 public class SecondCrazyClass {
 
-    private static final int MIN_AGE = 0;
+    private static final Logger logger = LoggerFactory.getLogger(SecondCrazyClass.class);
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private String name;
-    private int age;
+    public static void main(String[] args) {
 
+        logger.info("Create Worker worker");
+        Worker crazyClass = new Worker();
 
-    public SecondCrazyClass() {
-        logger.info("Create object");
-    }
+        int wrongAge = -1;
+        int age = 10;
+        String name = "Alex";
 
-    public SecondCrazyClass(String name, int age) {
-        logger.info("Create object with parameters ({}, {})", name, age);
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        logger.info("method setName({})", name);
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        logger.info("method setAge({})", age);
-        if(age < MIN_AGE) {
-            logger.error("", new IllegalArgumentException("Age must be more then 0"));
-            throw new IllegalArgumentException("Age must be more then 0");
+        logger.info("object.setAge({})", age);
+        crazyClass.setAge(age);
+        logger.info("object.setName({})", name);
+        crazyClass.setName(name);
+        logger.info("object.printHello()");
+        crazyClass.printHello();
+        try {
+            logger.info("object.setAge({})", wrongAge);
+            crazyClass.setAge(wrongAge);
+        }catch (Exception e){
+            logger.error("Exception: {}", e.toString());
         }
-
-        this.age = age;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SecondCrazyClass that = (SecondCrazyClass) o;
-        return getAge() == that.getAge() &&
-                Objects.equals(getName(), that.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getAge());
-    }
-
-    @Override
-    public String toString() {
-        return "My name:" + name + ". I am " + age + "years old.";
-    }
-
-    public void printHello(){
-        logger.info("Method printHello(): Hello {}", this);
-        System.out.println("Hello " + this);
     }
 }
